@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, :only => [:new, :create]
-
+  def edit
+  end
   def new
     @group = Group.find(params[:group_id])
     @post = Post.new
@@ -18,7 +19,13 @@ class PostsController < ApplicationController
       render :new
     end
   end
-
+  def update
+   if @group.update(group_params)
+      redirect_to groups_path, notice: "Update Success"
+    else
+      render :edit
+    end
+  end
 
   private
 
